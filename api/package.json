@@ -1,0 +1,27 @@
+{
+  "name": "accounts_api",
+  "version": "1.0.0",
+  "description": "A API that that keep accounts of bob.",
+  "main": "./compiledJS/index.js",
+  "scripts": {
+    "start": "node && nodemon ./compiledJS/index.js",
+    "server": "node && nodemon ./compiledJS/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "4.2.4"
+  },
+  "author": "Sinethemba Dlova",
+  "license": "ISC",
+  "dependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.16.0",
+    "@types/express-session": "^1.15.11",
+    "@types/mongoose": "^5.2.19",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-mongoose": "^0.1.0",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.3.2"
+  }
+}

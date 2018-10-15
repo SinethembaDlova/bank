@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "outDir": "./compiledJS",
+        "preserveConstEnums": true,
+        "moduleResolution": "node",
+        "sourceMap": true
+    },
+    "files": [
+        "index.ts",
+        "server.ts",
+        "models/accountDB.ts",
+        "routes/routes.ts"
+    ]
+}
