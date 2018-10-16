@@ -10,8 +10,6 @@ export class Routes {
             db.find({})
             .then((allAccounts) => {
               res.json({
-                  status: res.statusCode,
-                  response: 'All accounts of Bob.',
                   data: allAccounts
               })
             })
@@ -32,8 +30,6 @@ export class Routes {
             account.save({})
             .then((account) => {
               res.json({
-                  status: res.statusCode,
-                  response: 'All accounts of Bob.',
                   data: account
               })
             })
