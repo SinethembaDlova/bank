@@ -21,8 +21,9 @@ class Accounts extends React.Component {
             return accounts.map(account => {
               return  (<tr>
                     <td>{account.accountNumber}</td>
-                    <td>{account.createdDate}</td>
-                    <td>{account.balance}</td>
+                    <td>{account.createdDate.substring(0,10)}</td>
+                    <td>R{account.balance}</td>
+                    <button className='selectButton'> select</button>
                 </tr>)
             }) 
         }

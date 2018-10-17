@@ -49,12 +49,24 @@
   background-color: #54E3C1;
   color: white;
   padding: 16px 24px;
-  margin: 8px 0;
   border-radius: 4px;
   font-weight: 500;
   font-size: 16px;
   margin: 20px 0 0 0;
   border: none;
+  transition: 0.3s;
+}
+
+.selectButton{
+  background-color: #54E3C1;
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 10px 0 0 4px;
+  border: none;
+
   transition: 0.3s;
 }
 
@@ -66,6 +78,13 @@
   /*background: pink;*/
 }
 
+.selectButton:hover {
+  -moz-box-shadow: 1px 1px 10px #b5b5b5;
+  -webkit-box-shadow: 1px 1px 10px #b5b5b5;
+  box-shadow: 1px 1px 10px #b5b5b5;
+  transform: scale(1.01)
+  /*background: pink;*/
+}
 .form-field {
   margin-bottom: 20px;
   width: 100%;
@@ -109,4 +128,15 @@ hr
   margin: 0 0 0 10;
   border: none;
   transition: 0.3s;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+ th, td {
+  border: 1px solid black;
+  padding: 0 20px 0 10px
 }
