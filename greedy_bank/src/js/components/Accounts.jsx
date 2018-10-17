@@ -1,30 +1,36 @@
 import React from 'react'
-import fetchAccounts from '../api/fetchAccounts';
 
 class Accounts extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {accounts: []}
+    }
+
+    componentDidMount = () => {
+        fetch('http://localhost:3000/accounts')
+        .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({accounts: responseJson.data});
+      })
+    }
 
     render() {
 
-        const data = fetchAccounts();
-        console.log(data);
-
-        // data.map(account => {
-        //     console.log(account)});
-
-        const tableRow = () => { 
-            data.map(account => {
-            return (
-                <tr>
+        console.log(this.state.accounts)
+        const tableRow = (accounts) => {
+            return accounts.map(account => {
+              return  (<tr>
                     <td>{account.accountNumber}</td>
+                    <td>{account.createdDate}</td>
                     <td>{account.balance}</td>
-                </tr>
-                )
-            })
+                </tr>)
+            }) 
         }
+ 
 
         return (
             <div className="flex-container">
-                <div className="form-row">
+               <div className="form-row">
                     <h1>Greedy Bank</h1>
                     <hr />
 
@@ -35,11 +41,17 @@ class Accounts extends React.Component {
 
                     <div>
                         <table>
-                            <tr>
-                                <th>Account Number</th>
-                                <th>Balance</th>
-                            </tr>
-                            { tableRow }
+                            <thead>
+                                <tr>
+                                    <th>Account Number</th>
+                                    <th>Created Date</th>
+                                    <th>Balance</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tableRow(this.state.accounts)}
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -49,3 +61,4 @@ class Accounts extends React.Component {
     }
 }
 export default Accounts;
+
