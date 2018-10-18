@@ -1,4 +1,4 @@
-function fetchAccounts(accounts) {
+const fetchAccounts = (accounts) => {
   return {
     type: "FETCH_ACCOUNTS",
     accounts
@@ -6,4 +6,4 @@ function fetchAccounts(accounts) {
 }
 
 
-export default { fetchAccounts };
+export default  fetchAccounts;

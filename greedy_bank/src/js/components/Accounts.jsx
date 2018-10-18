@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import {connect} from 'react-redux';
+import fetchAccounts from '../redux/actions/actionTypes';
 
 class Accounts extends React.Component {
     constructor(props){
@@ -10,13 +12,13 @@ class Accounts extends React.Component {
         fetch('http://localhost:5000/accounts')
         .then((response) => response.json())
           .then((responseJson) => {
-            this.setState({accounts: responseJson.data});
+            this.props.fetchAccounts(responseJson.data);
       })
     }
 
     render() {
         const tableRow = (accounts) => {
-            return accounts.map(account => {
+            return this.props.map(account => {
               return  (<tr>
                     <td>{account.accountNumber}</td>
                     <td>{account.createdDate.substring(0,10)}</td>
@@ -59,5 +61,10 @@ class Accounts extends React.Component {
         )
     }
 }
-export default Accounts;
+
+const mapStateToProps = (state) => ({
+    accounts : state.accounts
+});
+
+export default connect(mapStateToProps, { fetchAccounts })(Accounts);
 
