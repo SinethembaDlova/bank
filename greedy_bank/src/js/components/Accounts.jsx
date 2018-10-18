@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import fetchAccounts from '../redux/actions/actionTypes';
+import fetchAccounts from '../redux/actions/';
 
 class Accounts extends React.Component {
     constructor(props){
@@ -18,7 +18,7 @@ class Accounts extends React.Component {
 
     render() {
         const tableRow = (accounts) => {
-            return this.props.map(account => {
+            return accounts.map(account => {
               return  (<tr>
                     <td>{account.accountNumber}</td>
                     <td>{account.createdDate.substring(0,10)}</td>
@@ -51,7 +51,7 @@ class Accounts extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tableRow(this.state.accounts)}
+                                {tableRow(this.props)}
                             </tbody>
                         </table>
                     </div>
