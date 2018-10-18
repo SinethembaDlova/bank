@@ -6,8 +6,8 @@ class Accounts extends React.Component {
         this.state = {accounts: []}
     }
 
-    componentDidMount = () => {
-        fetch('http://localhost:3000/accounts')
+    componentWillMount = () => {
+        fetch('http://localhost:5000/accounts')
         .then((response) => response.json())
           .then((responseJson) => {
             this.setState({accounts: responseJson.data});
@@ -15,8 +15,6 @@ class Accounts extends React.Component {
     }
 
     render() {
-
-        console.log(this.state.accounts)
         const tableRow = (accounts) => {
             return accounts.map(account => {
               return  (<tr>
@@ -35,9 +33,9 @@ class Accounts extends React.Component {
                     <h1>Greedy Bank</h1>
                     <hr />
 
-                    <div>
-                        <p>My Account</p>
-                        <p>Total holdings</p>
+                    <div className='wrapper'>
+                        <p className='myAccount'>My Accounts</p>
+                        <p className='totalHoldings'>Total holdings:</p>
                     </div>
 
                     <div>

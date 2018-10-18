@@ -130,7 +130,20 @@ hr
   transition: 0.3s;
 }
 
+.wrapper{ 
+  overflow: hidden;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
 
+.totalHoldings {
+  overflow: hidden; 
+  float: right;
+}
+
+.myAccount {
+  float:left
+}
 table {
   width: 100%;
   border-collapse: collapse;

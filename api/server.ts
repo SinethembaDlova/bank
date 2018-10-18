@@ -46,7 +46,7 @@ export class Server {
         })
 
         //run Server
-        const port =  3000;
+        const port =  5000;
         this.app.listen(port, () => console.log("Server running on  https://localhost:" + port + '/'));
 
     }

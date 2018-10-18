@@ -33,7 +33,7 @@ var Server = (function () {
             }
             next();
         });
-        var port = 3000;
+        var port = 5000;
         this.app.listen(port, function () { return console.log("Server running on  https://localhost:" + port + '/'); });
     };
     return Server;
