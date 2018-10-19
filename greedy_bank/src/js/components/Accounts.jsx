@@ -1,37 +1,32 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import fetchAccounts from '../redux/actions/';
+import { connect } from 'react-redux';
+import fetchAccounts from '../redux/actions/fetchAccounts';
 
 class Accounts extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {accounts: []}
-    }
-
     componentWillMount = () => {
         fetch('http://localhost:5000/accounts')
-        .then((response) => response.json())
-          .then((responseJson) => {
-            this.props.fetchAccounts(responseJson.data);
-      })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                setTimeout(() => this.props.fetchAccounts(responseJson.data), 5000);
+            })
     }
 
     render() {
         const tableRow = (accounts) => {
             return accounts.map(account => {
-              return  (<tr>
+                return (<tr key={account.accountNumber}>
                     <td>{account.accountNumber}</td>
-                    <td>{account.createdDate.substring(0,10)}</td>
+                    <td>{account.createdDate.substring(0, 10)}</td>
                     <td>R{account.balance}</td>
                     <button className='selectButton'> select</button>
                 </tr>)
-            }) 
+            })
         }
- 
+
 
         return (
             <div className="flex-container">
-               <div className="form-row">
+                <div className="form-row">
                     <h1>Greedy Bank</h1>
                     <hr />
 
@@ -51,7 +46,7 @@ class Accounts extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tableRow(this.props)}
+                                {tableRow(this.props.accounts)}
                             </tbody>
                         </table>
                     </div>
@@ -63,7 +58,7 @@ class Accounts extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    accounts : state.accounts
+    accounts: state.accounts
 });
 
 export default connect(mapStateToProps, { fetchAccounts })(Accounts);
