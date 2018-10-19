@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import fetchAccounts from '../redux/actions/fetchAccounts';
 
 class Accounts extends React.Component {
-    componentWillMount = () => {
+    componentDidMount = () => {
         fetch('http://localhost:5000/accounts')
             .then((response) => response.json())
             .then((responseJson) => {
