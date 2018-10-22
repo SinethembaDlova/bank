@@ -35,4 +35,30 @@ export class Routes {
             })
             .catch(error =>(console.log(error)));
         }
+
+        // update balance
+        public updateBalance(req: Request, res: Response): void {
+            
+            const accountID = req.params.id;
+            const ammount = req.body.ammount;
+
+            db.findOne({
+                _id: accountID
+            }, function(account, error) {
+                if(error){
+                    console.log(error);
+                }
+                else{
+                    account.balance = account.balance + ammount;
+                    account.save({})
+                    .then(() => {
+                        res.json({
+                            data: account
+                        })
+                    })
+                    .catch(() =>(console.log(error)));
+
+                }
+            })       
+        }
 }

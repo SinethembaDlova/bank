@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import fetchAccounts from '../redux/actions/fetchAccounts';
 
 class Accounts extends React.Component {
+
     componentDidMount = () => {
         fetch('http://localhost:5000/accounts')
             .then((response) => response.json())
@@ -11,6 +12,12 @@ class Accounts extends React.Component {
             })
     }
 
+
+    handleClick = (e) => {
+        alert(e);
+    }
+    
+
     render() {
         const tableRow = (accounts) => {
             return accounts.map(account => {
@@ -18,12 +25,12 @@ class Accounts extends React.Component {
                     <td>{account.accountNumber}</td>
                     <td>{account.createdDate.substring(0, 10)}</td>
                     <td>R{account.balance}</td>
-                    <button className='selectButton'> select</button>
+                    <button className='selectButton' > select</button>
                 </tr>)
             })
         }
 
-
+        // onClick={ this.handleClick(account._id) }
         return (
             <div className="flex-container">
                 <div className="form-row">

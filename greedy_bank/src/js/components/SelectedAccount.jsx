@@ -8,15 +8,16 @@ class SelectedAccount extends React.Component{
 
             <div className="flex-container">
                 <div>
+                <hr />
                     <div className="form-row">
                         <h4>Selected Account:</h4> 
                     </div>
                     <div className="form-row">
-                        <div className='form-field'>
-                            <input type="text" placeholder='ammount'/>
-                            <button className='button'>Withdraw</button> 
-                            <button className='button'>Deposit</button>
-                         </div>
+                        <form action="" className='form-field'>
+                        <input type="text" placeholder='ammount' name='ammount'/>
+                            <button className='updateBalaceButton' >Withdraw</button> 
+                            <button className='updateBalaceButton'>Deposit</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -6,4 +6,5 @@ var server = new server_1.Server();
 var routes = new routes_1.Routes();
 server.app.get('/accounts', routes.getAccounts);
 server.app.post('/accounts', routes.addAccount);
+server.app.post('/accounts/:id', routes.updateBalance);
 //# sourceMappingURL=index.js.map

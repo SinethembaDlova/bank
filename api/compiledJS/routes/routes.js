@@ -28,6 +28,26 @@ var Routes = (function () {
             });
         })["catch"](function (error) { return (console.log(error)); });
     };
+    Routes.prototype.updateBalance = function (req, res) {
+        var accountID = req.params.id;
+        var ammount = req.body.ammount;
+        accountDB_1["default"].findOne({
+            _id: accountID
+        }, function (account, error) {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                account.balance = account.balance + ammount;
+                account.save({})
+                    .then(function () {
+                    res.json({
+                        data: account
+                    });
+                })["catch"](function () { return (console.log(error)); });
+            }
+        });
+    };
     return Routes;
 }());
 exports.Routes = Routes;

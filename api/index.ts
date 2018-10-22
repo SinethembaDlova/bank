@@ -6,3 +6,4 @@ var routes = new Routes();
 
 server.app.get('/accounts', routes.getAccounts);
 server.app.post('/accounts', routes.addAccount);
+server.app.post('/accounts/:id', routes.updateBalance);
