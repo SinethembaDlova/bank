@@ -40,25 +40,25 @@ export class Routes {
         public updateBalance(req: Request, res: Response): void {
             
             const accountID = req.params.id;
-            const ammount = req.body.ammount;
+            const ammount = Number(req.body.ammount);
 
-            db.findOne({
-                _id: accountID
-            }, function(account, error) {
-                if(error){
-                    console.log(error);
-                }
-                else{
-                    account.balance = account.balance + ammount;
-                    account.save({})
-                    .then(() => {
-                        res.json({
-                            data: account
-                        })
+            console.log(accountID)
+            
+            db.findOne({_id: accountID}, function(error: Error, selectedAccount: any) {
+                if (error) return error
+                
+                console.log(selectedAccount);
+
+                selectedAccount.balance = selectedAccount.balance + ammount;    
+                selectedAccount.save(function(err: Error, updatedAccount: Object) {
+                if (err) return err;
+
+                    res.json({
+                        data: updatedAccount
                     })
-                    .catch(() =>(console.log(error)));
-
-                }
-            })       
+                })
+            })
         }
 }
+
+

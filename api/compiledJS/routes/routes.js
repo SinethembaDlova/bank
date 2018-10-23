@@ -30,22 +30,20 @@ var Routes = (function () {
     };
     Routes.prototype.updateBalance = function (req, res) {
         var accountID = req.params.id;
-        var ammount = req.body.ammount;
-        accountDB_1["default"].findOne({
-            _id: accountID
-        }, function (account, error) {
-            if (error) {
-                console.log(error);
-            }
-            else {
-                account.balance = account.balance + ammount;
-                account.save({})
-                    .then(function () {
-                    res.json({
-                        data: account
-                    });
-                })["catch"](function () { return (console.log(error)); });
-            }
+        var ammount = Number(req.body.ammount);
+        console.log(accountID);
+        accountDB_1["default"].findOne({ _id: accountID }, function (error, selectedAccount) {
+            if (error)
+                return error;
+            console.log(selectedAccount);
+            selectedAccount.balance = selectedAccount.balance + ammount;
+            selectedAccount.save(function (err, updatedAccount) {
+                if (err)
+                    return err;
+                res.json({
+                    data: updatedAccount
+                });
+            });
         });
     };
     return Routes;
