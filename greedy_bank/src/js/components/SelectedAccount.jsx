@@ -5,21 +5,17 @@ class SelectedAccount extends React.Component{
 
     render(){ 
         return (
-
-            <div className="flex-container">
-                <div>
+            <div className="form-row">
+                <br/>
+                <br/>
                 <hr />
-                    <div className="form-row">
-                        <h4>Selected Account:</h4> 
-                    </div>
-                    <div className="form-row">
-                        <form action="" className='form-field'>
-                        <input type="text" placeholder='ammount' name='ammount'/>
-                            <button className='updateBalaceButton' >Withdraw</button> 
-                            <button className='updateBalaceButton'>Deposit</button>
-                        </form>
-                    </div>
-                </div>
+                 <h4>Selected Account: {this.props.account.accountNumber}</h4> 
+                <form action="" className='form-field'>
+                    <input type="text" placeholder='ammount' name='ammount'/>
+                    <button className='updateBalaceButton' >Withdraw</button> 
+                   <button className='updateBalaceButton'>Deposit</button>
+                </form>
+            
             </div>
 
         )
