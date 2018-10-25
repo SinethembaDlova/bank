@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import fetchAccounts from '../redux/actions/fetchAccounts';
 
 class SelectedAccount extends React.Component{ 
     constructor(props){
@@ -7,34 +8,65 @@ class SelectedAccount extends React.Component{
         this.state = {ammount: 0}
     }
 
-    // componentDidMount = () => {
-    //     const ammount = {"ammount": }
-    //     fetch('http://localhost:5000/accounts', {
-    //         method: 'post',
-    //         body: JSON.stringify(ammount)
-    //       })
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //             setTimeout(() => this.props.fetchAccounts(responseJson.data), 2000);
-    //         })
-    // }
-
-    handleWithdraw = (event) => {
-        const ammount = {"ammount": -this.state.ammount}
-        console.log(ammount);
-        // event.preventDefault();
-        return ammount;
+    updateStore = () => {
+        fetch('http://localhost:5000/accounts')
+        .then((response) => response.json())
+        .then((responseJson) => {
+            this.props.fetchAccounts(responseJson.data);
+        });
     }
 
-    handleDeposit = (event) => {
-        const ammount = {"ammount": this.state.ammount}; 
+    handleWithdraw = () => {
+        const ammount = {"ammount": -this.state.ammount};
         console.log(ammount);
-        // event.preventDefault();
-        return ammount;
+        console.log(this.props.account._id);
+        if(this.state.ammount > 0) {
+            fetch('http://localhost:5000/accounts/' + this.props.account._id, {
+                method: 'POST',
+                body: JSON.stringify(ammount),
+                headers:{
+                    'Content-Type': 'application/json'
+                  }
+            })
+            .then(responce => responce.json())
+            .then(data => {
+                    this.updateStore(); 
+
+                    this.setState({
+                       ammount: 0
+                    });
+            });
+           
+        }
+    }
+
+    handleDeposit = () => {
+        const ammount = {"ammount": this.state.ammount};
+        console.log(ammount);
+        console.log(this.props.account._id);
+        if(this.state.ammount > 0) {
+            fetch('http://localhost:5000/accounts/' + this.props.account._id, {
+                method: 'POST',
+                body: JSON.stringify(ammount),
+                headers:{
+                    'Content-Type': 'application/json'
+                  }
+            })
+            .then(responce => responce.json())
+            .then(data => {
+                    this.updateStore(); 
+
+                    this.setState({
+                       ammount: 0
+                    });
+            });
+           
+        }
     }
 
     handleChange = (event) => {
-        this.setState({ammount: event.target.value}); 
+        this.setState({ammount: Number(event.target.value)
+        }); 
     }
 
     render(){ 
@@ -49,11 +81,10 @@ class SelectedAccount extends React.Component{
                 </div>
                 <button className='updateBalaceButton' onClick={this.handleWithdraw} >Withdraw</button> 
                 <button className='updateBalaceButton' onClick={this.handleDeposit}>Deposit</button>
-            
             </div>
 
         )
     }
 }
 
-export default SelectedAccount;
+export default connect(null, { fetchAccounts })(SelectedAccount);

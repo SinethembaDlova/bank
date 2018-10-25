@@ -33,8 +33,15 @@ class Accounts extends React.Component {
 
 
     render() {
+        
+        const initialHoldings = 0;
+        const totalHoldings = this.props.accounts.reduce((accumulator, currentValue) => {
+            return accumulator + currentValue.balance;
+        }, initialHoldings);
+
         const tableRow = (accounts) => {
             return accounts.map(account => {
+
                 return (<tr key={account.accountNumber}>
                     <td>{account.accountNumber}</td>
                     <td>{account.createdDate.substring(0, 10)}</td>
@@ -53,7 +60,7 @@ class Accounts extends React.Component {
 
                     <div className='wrapper'>
                         <p className='myAccount'>My Accounts</p>
-                        <p className='totalHoldings'>Total holdings:</p>
+                        <p className='totalHoldings'>Total holdings: {totalHoldings}</p>
                     </div>
 
                     <div>
