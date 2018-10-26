@@ -1,0 +1,246 @@
+openapi: 3.0.1
+info:
+  description: This is the Accounts service.
+  version: 1.0.0
+  title: Accounts Service
+  termsOfService: 'http://localhost:5000/'
+  contact:
+    email: helpdesk@wealthmigrate.com
+  license:
+    name: Proprietary License
+    url: 'https://github.com/SinethembaDlova/'
+tags:
+  - name: Accounts
+    description: Accounts API
+    externalDocs:
+      description: Find out more
+      url: 'https://github.com/SinethembaDlova'
+servers:
+  - url: 'http://localhost:5000'
+paths:
+  /accounts:
+    post:
+      summary: Save a new Account
+      operationId: addAccount
+      requestBody:
+        description: Save a new ACcount
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputAccount'
+      responses:
+        '201':
+          description: successful creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Accounts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    get:
+      summary: Gets a set of Accounts objects
+      operationId: getAllAccounts
+      security: []
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 20
+          description: Limit the record count.
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            default: 0
+          description: Offset for skipping records.
+        - in: query
+          name: sort
+          schema:
+            type: string
+            default: number
+          description: >-
+            Sort order for records. Comma-seperated column list. </br> column
+            name for ASC </br> !column name for DESC
+        - in: query
+          name: accountNumber
+          schema:
+            type: string
+          description: >-
+            Filter the resultset with the  account number specified. </br> -
+            Starting a value with '<' will do less than </br>  - Starting a
+            value with '>' will do higher than </br>  - Starting a value with
+            '!' will do not equal </br>  - Starting a value with '%' will do
+            like </br>
+        - in: query
+          name: createdDate
+          schema:
+            type: array
+            items:
+              type: string
+          description: >-
+            Filter the resultset with the created date specified. </br> -
+            Starting a value with '<' will do less than </br>  - Starting a
+            value with '>' will do higher than </br>  - Starting a value with
+            '!' will do not equal </br>  - Starting a value with '%' will do
+            like </br>
+        - in: query
+          name: balance
+          schema:
+            type: array
+            items:
+              type: integer
+          description: >-
+            Filter the resultset with the balance specified.
+            </br> - Starting a value with '<' will do less than </br>  -
+            Starting a value with '>' will do higher than </br>  - Starting a
+            value with '!' will do not equal </br>  - Starting a value with '%'
+            will do like </br>
+      responses:
+        '200':
+          description: successfull operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Accounts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  '/accounts/5bc4b3ee46a8c34bc986fac8':
+    post:
+      summary: Save a new Account
+      operationId: addAccount
+      requestBody:
+        description: Save a new ACcount
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBalance'
+      responses:
+        '201':
+          description: successful creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Accounts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  schemas:
+    Accounts:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+    Account:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 5bc4b3ee46a8c34bc986fac8
+          description: Unique ID for account
+        accountNumber:
+          type: integer
+          example: 1202342323
+          description: account number  of the account
+        createdDate: 
+          type: string
+          example: "2018-10-15"  
+        balance:
+          type: string
+          example: 10000
+          description: the balance of the account
+    InputAccount:
+      type: object
+      properties:
+        accountNumber:
+          type: integer
+          example: 1202342323
+          description: account number  of the account
+        balance:
+          type: string
+          example: 10000
+          description: the balance of the account
+      required:
+        - accountNumber
+        - balance
+    UpdateBalance:
+      type: object
+      properties:
+        ammount:
+          type: integer
+          example: 20000
+          description: ammount you want to deposit or withdraw
+
+      required:
+        - ammount
+    Errors:
+      allOf:
+        - $ref: '#/components/schemas/ErrorArray'
+    ErrorArray:
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorElement'
+    ErrorElement:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+          example: 0
+          description: Internal error code
+        message:
+          type: string
+          example: Something went wrong
+          description: The message for the error
+  responses:
+    BadRequest:
+      description: unsuccessful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: unauthorized operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    InternalError:
+      description: unsuccessful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+security:
+  - bearerAuth: []
